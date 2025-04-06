@@ -4,11 +4,14 @@ _GLOBAL_STDERR_LOG=$(mktemp)
 _SEARCH_WORD="?-"
 lock=false
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+VENV_PYTHON=$SCRIPT_DIR/env/bin/python
+LLM_TERMINAL_AGENT=$SCRIPT_DIR/llm_bash_script_generator.py
 
 _bash_error_handler_detailed() {
   error0=$(cat $_GLOBAL_STDERR_LOG)
   exec 2>&1
-  /home/ovi/env0/bin/python /home/ovi/software/BSagent/llm_bash_script_generator.py --error "$error0" "$BASH_COMMAND"
+  $VENV_PYTHON $LLM_TERMINAL_AGENT --error "$error0" "$BASH_COMMAND"
   lock=false
 }
 trap '_bash_error_handler_detailed' ERR
@@ -21,7 +24,7 @@ command_not_found_handle() {
     if [[ $cmd0 == $_SEARCH_WORD* ]]; then
         cmd0="${cmd0//$_SEARCH_WORD/}"
         exec 2>&1
-        /home/ovi/env0/bin/python /home/ovi/software/BSagent/llm_bash_script_generator.py "$cmd0"
+        $VENV_PYTHON $LLM_TERMINAL_AGENT "$cmd0"
         return 0
     fi
 
