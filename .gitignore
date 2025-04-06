@@ -6,3 +6,6 @@ env/
 archived/
 # Ignore files starting with tmp
 tmp*
+
+.ropeproject/
+__pycache__/
