@@ -1,0 +1,8 @@
+# Ignore env/ directory
+env/
+# Ignore .env file
+.env
+# Ignore archived/ directory
+archived/
+# Ignore files starting with tmp
+tmp*
