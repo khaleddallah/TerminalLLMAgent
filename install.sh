@@ -10,7 +10,7 @@ set -o pipefail
 # --- Configuration ---
 VENV_NAME="venv" # Name of the virtual environment directory
 REQUIREMENTS_FILE="requirements.txt" # Path to requirements relative to project root
-LLM_BS_TRIGGER="llm_agent_trigger.sh"
+LLM_BS_TRIGGER="bashscript_llm_agent_trigger.sh"
 
 
 # --- Get Project Directory ---

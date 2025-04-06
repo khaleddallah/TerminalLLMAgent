@@ -1,5 +1,5 @@
 # Ignore env/ directory
-env/
+venv/
 # Ignore .env file
 .env
 # Ignore archived/ directory
