@@ -1,12 +1,11 @@
 # Bash Script LLM Agent
-
-**Motive:**    
-Skip the browser. Get bash help directly in your terminal. No more copying and pasting.
-
-### Description     
 The Bash Script LLM Agent is a command-line tool designed to help you to: 
 * **Generate Bash Scripts:** Given a natural language prompt, it can generate the corresponding bash script.
 * **Suggest Error Solutions:** When you encounter an error in your terminal, it can analyze the error message and provide relevant solutions.
+
+
+### Motive 
+Skip the browser. Get bash help directly in your terminal. No more copying and pasting.
 
 
 ### Installation    
