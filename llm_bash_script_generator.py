@@ -198,15 +198,43 @@ Constraints:
             return None
 
     def execute_script(self, script_path: str):
-        """Executes the generated script."""
+        """Executes a script and displays its stdout in real-time."""
         try:
-            exit_code = os.system(script_path)
-            if exit_code == 0:
-                print(f"{COLOR_GREEN}Script executed successfully.{COLOR_RESET}")
-            else:
-                print(f"{COLOR_RED}Script finished with exit code: {exit_code}{COLOR_RESET}")
-        except Exception as e:
-            print(f"{COLOR_RED}Error executing script: {e}{COLOR_RESET}")
+            process = subprocess.Popen(
+                [script_path],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                bufsize=1,
+                universal_newlines=True,
+            )
+
+            while True:
+                output = process.stdout.readline()
+                if output == '' and process.poll() is not None:
+                    break
+                if output:
+                    print(output.strip(), flush=True)
+
+            stderr_output, _ = process.communicate()
+            if stderr_output:
+                print("Standard Error:")
+                print(stderr_output, flush=True)
+
+            return_code = process.poll()
+            if return_code != 0:
+                print(f"Script exited with return code: {return_code}")
+                return return_code #Return the error code for the caller to handle.
+            return 0 # return 0 for success.
+
+        except FileNotFoundError:
+            print("Script not found.")
+            return 1 #Return 1 for file not found error.
+
+        except Exception as generic_error:
+            print(f"An unexpected error occurred: {generic_error}")
+            return 2 #Return 2 for generic errors.
+
 
     def suggest_and_execute(self, query: str, error: str | None = None):
         """Generates, confirms, saves, and executes a script."""

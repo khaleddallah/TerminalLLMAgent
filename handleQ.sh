@@ -6,8 +6,9 @@ lock=false
 
 
 _bash_error_handler_detailed() {
-  /home/ovi/env0/bin/python /home/ovi/software/BSagent/llm_bash_script_generator.py --error "$(cat $_GLOBAL_STDERR_LOG)" "$BASH_COMMAND"
+  error0=$(cat $_GLOBAL_STDERR_LOG)
   exec 2>&1
+  /home/ovi/env0/bin/python /home/ovi/software/BSagent/llm_bash_script_generator.py --error "$error0" "$BASH_COMMAND"
   lock=false
 }
 trap '_bash_error_handler_detailed' ERR
@@ -19,8 +20,8 @@ command_not_found_handle() {
     cmd0=$*
     if [[ $cmd0 == $_SEARCH_WORD* ]]; then
         cmd0="${cmd0//$_SEARCH_WORD/}"
-        /home/ovi/env0/bin/python /home/ovi/software/BSagent/llm_bash_script_generator.py "$cmd0"
         exec 2>&1
+        /home/ovi/env0/bin/python /home/ovi/software/BSagent/llm_bash_script_generator.py "$cmd0"
         return 0
     fi
 
@@ -31,10 +32,11 @@ command_not_found_handle() {
 }
 
 
-function inturrupt0() {
+function post_command() {
     exec 2>&1
+    lock=false
 }
-trap 'inturrupt0' SIGINT
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }post_command"
 
 
 # IMPORTANT : it is important for this to be as the last
@@ -43,7 +45,6 @@ trap 'inturrupt0' SIGINT
 function pre_command() {
   if [ "$lock" = false ]; then
     exec 2> >(tee "$_GLOBAL_STDERR_LOG" >&2)
-    > "$_GLOBAL_STDERR_LOG"
     lock=true
   fi
 }
