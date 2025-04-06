@@ -6,7 +6,7 @@ lock=false
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 VENV_PYTHON=$SCRIPT_DIR/venv/bin/python
-LLM_TERMINAL_AGENT=$SCRIPT_DIR/bashscript_llm_agent.py
+LLM_TERMINAL_AGENT=$SCRIPT_DIR/src/bashscript_llm_agent.py
 
 _bash_error_handler_detailed() {
   error0=$(cat $_GLOBAL_STDERR_LOG)

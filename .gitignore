@@ -9,3 +9,4 @@ tmp*
 
 .ropeproject/
 __pycache__/
+prompts/

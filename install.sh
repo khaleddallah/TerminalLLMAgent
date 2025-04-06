@@ -34,7 +34,7 @@ echo "" # Add a newline for spacing
 # --- Configuration ---
 VENV_NAME="venv" # Name of the virtual environment directory
 REQUIREMENTS_FILE="requirements.txt" # Path to requirements relative to project root
-LLM_BS_TRIGGER="bashscript_llm_agent_trigger.sh"
+LLM_BS_TRIGGER="src/bashscript_llm_agent_trigger.sh"
 ENV_TEMPLATE_FILE=".env_template" # Name of the template environment file
 ENV_FILE=".env"                   # Name of the actual environment file
 
