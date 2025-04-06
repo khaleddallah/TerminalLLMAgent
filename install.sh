@@ -26,7 +26,7 @@ COLOR_BOLD_CYAN='\033[1;36m'
 # --- Display Header ---
 echo -e "${COLOR_BOLD_CYAN}"
 echo "========================================"
-echo "     BASH SCRIPT LLM AGENT INSTALLER    "
+echo "     TERMINAL LLM AGENT INSTALLER    "
 echo "========================================"
 echo -e "${COLOR_RESET}"
 echo "" # Add a newline for spacing
@@ -34,7 +34,7 @@ echo "" # Add a newline for spacing
 # --- Configuration ---
 VENV_NAME="venv" # Name of the virtual environment directory
 REQUIREMENTS_FILE="requirements.txt" # Path to requirements relative to project root
-LLM_BS_TRIGGER="src/bashscript_llm_agent_trigger.sh"
+LLM_BS_TRIGGER="src/terminal_llm_agent_trigger.sh"
 ENV_TEMPLATE_FILE=".env_template" # Name of the template environment file
 ENV_FILE=".env"                   # Name of the actual environment file
 
