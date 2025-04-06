@@ -1,22 +1,30 @@
+
+
 _GLOBAL_STDERR_LOG=$(mktemp)
 _SEARCH_WORD="?-"
 lock=false
 
+> "$_GLOBAL_STDERR_LOG"
+
 _bash_error_handler_detailed() {
   /home/ovi/env0/bin/python /home/ovi/software/BSagent/llm_bash_script_generator.py --error "$(cat $_GLOBAL_STDERR_LOG)" "$BASH_COMMAND"
   > "$_GLOBAL_STDERR_LOG"
-  exec 2>&1           
+  exec 2>&1
   lock=false
 }
 trap '_bash_error_handler_detailed' ERR
 
+
 function pre_command() {
   if [ "$lock" = false ]; then
+    # > "$_GLOBAL_STDERR_LOG"
     exec 2> >(tee "$_GLOBAL_STDERR_LOG" >&2)
+    # > "$_GLOBAL_STDERR_LOG"
     lock=true
   fi
 }
 trap 'pre_command' DEBUG
+
 
 # Custom command-not-found handler
 command_not_found_handle() {
@@ -24,8 +32,8 @@ command_not_found_handle() {
     cmd0=$*
     if [[ $cmd0 == $_SEARCH_WORD* ]]; then
         query="${cmd0//$_SEARCH_WORD/}"
-        /home/ovi/env0/bin/python /home/ovi/software/BSagent/llm_bash_script_generator.py "$query" 
-        exec 2>&1   
+        /home/ovi/env0/bin/python /home/ovi/software/BSagent/llm_bash_script_generator.py "$query"
+        exec 2>&1
         return 0
     fi
 
@@ -36,11 +44,10 @@ command_not_found_handle() {
 }
 
 
-
-
-# function post_command() {
-#   exec 2>&1 
-# }
-
-# # Trap the ERR signal to run the error_handler function
-# trap 'post_command' RETURN
+function post_command() {
+    > "$_GLOBAL_STDERR_LOG"
+    exec 2>&1
+    trap - SIGINT
+}
+# Trap the ERR signal to run the error_handler function
+trap 'post_command' SIGINT
