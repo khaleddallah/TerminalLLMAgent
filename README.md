@@ -1,9 +1,10 @@
-# Bash Script LLM Agent
+# Terminal LLM Agent
 
-The Bash Script LLM Agent is a command-line tool designed to help you to: 
+![alt text](<logo.png>)
+
+Terminal LLM Agent is a command-line tool designed to help: 
 * **Generate Bash Scripts:** Given a natural language prompt, it can generate the corresponding bash script.
 * **Suggest Error Solutions:** When you encounter an error in your terminal, it can analyze the error message and provide relevant solutions.
-
 
 
 ## Motive 
