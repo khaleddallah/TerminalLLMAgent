@@ -8,7 +8,7 @@ Terminal LLM Agent is a command-line tool designed to help:
 
 
 ## Motive 
-Skip the browser. Get bash help directly in your terminal. No more copying and pasting.
+Skip the browser. Get help directly in your terminal. No more copying and pasting.
 
 
 ## Installation    
